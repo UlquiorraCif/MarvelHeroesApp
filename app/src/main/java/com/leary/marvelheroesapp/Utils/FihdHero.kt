@@ -5,10 +5,5 @@ import com.leary.marvelheroesapp.Model.ModelHero
 
 fun FindHero(name: String): ModelHero {
     val heroValues = SampleData.heroesSample
-    heroValues.forEach { hero ->
-        if(hero.name == name){
-            return hero
-        }
-    }
-    return heroValues[0]
+    return heroValues.find { it.name == name } ?: heroValues[0]
 }

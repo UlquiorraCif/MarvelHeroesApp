@@ -1,4 +1,4 @@
-package com.leary.marvelheroesapp.Utils
+package com.leary.marvelheroesapp.Navigations
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -9,8 +9,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.leary.marvelheroesapp.Assets.SampleData
-import com.leary.marvelheroesapp.VievModel.HeroScrollScreen
-import com.leary.marvelheroesapp.VievModel.HeroScreen
+import com.leary.marvelheroesapp.Utils.FindHero
+import com.leary.marvelheroesapp.Screans.HeroScrollScreen
+import com.leary.marvelheroesapp.Screans.HeroScrean
 
 enum class HeroesScreen {
     Start,
@@ -39,7 +40,7 @@ fun Navigation(navController: NavHostController = rememberNavController()){
             )
         }
         composable(route = HeroesScreen.SingleHero.name){
-            HeroScreen(
+            HeroScrean(
                 hero = heroesState.value,
                 navigateUp = {navController.navigateUp()}
             )

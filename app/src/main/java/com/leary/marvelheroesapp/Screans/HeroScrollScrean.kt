@@ -1,4 +1,4 @@
-package com.leary.marvelheroesapp.VievModel
+package com.leary.marvelheroesapp.Screans
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi

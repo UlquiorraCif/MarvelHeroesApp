@@ -1,4 +1,4 @@
-package com.leary.marvelheroesapp.VievModel
+package com.leary.marvelheroesapp.Screans
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -25,7 +24,7 @@ import com.leary.marvelheroesapp.UI.Theme.Theme.Size
 import com.leary.marvelheroesapp.UI.Theme.Theme.Spaces
 
 @Composable
-fun HeroScreen(hero: ModelHero, navigateUp: () -> Unit){
+fun HeroScrean(hero: ModelHero, navigateUp: () -> Unit){
     Box (modifier = Modifier.fillMaxSize()){
         AsyncImage(
             model = ImageRequest

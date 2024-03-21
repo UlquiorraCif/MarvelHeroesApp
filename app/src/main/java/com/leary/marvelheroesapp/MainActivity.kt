@@ -15,7 +15,7 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 import com.leary.marvelheroesapp.UI.Theme.Theme.MarvelHeroesAppTheme
-import com.leary.marvelheroesapp.Utils.Navigation
+import com.leary.marvelheroesapp.Navigations.Navigation
 
 
 class MainActivity : ComponentActivity() {
