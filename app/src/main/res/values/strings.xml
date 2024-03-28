@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">MarvelHeroesApp</string>
+    <string name="app_name">Marvel</string>
+    <string name="back_button">Back</string>
+    <string name="choose_hero">Choose your hero</string>
+    <string name="marvel">Marvel studios</string>
+    <string name="test_name">Info</string>
+    <string name="test_description">Info description</string>
 </resources>

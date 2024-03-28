@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="redDeadpool">#930303</color>
+    <color name="redIronmean">#B30505</color>
+    <color name="AmericanCap">#0248FA</color>
+    <color name="Spiderman">#135A8A</color>
+    <color name="DoctorStrange">#56779A</color>
+    <color name="Thor">#39179A</color>
+    <color name="Thanos">#6B2477</color>
 </resources>
