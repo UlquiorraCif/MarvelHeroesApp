@@ -5,4 +5,8 @@
     <string name="marvel">Marvel studios</string>
     <string name="test_name">Info</string>
     <string name="test_description">Info description</string>
+    <string name="loading">Loading</string>
+    <string name="connection_error">Connection error</string>
+    <string name="choosehero_error_message"> Can t reach data from the server</string>
+    <string name="singlehero_error_message"> Can t reach a single hero</string>
 </resources>
