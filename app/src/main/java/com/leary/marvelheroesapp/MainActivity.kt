@@ -3,19 +3,17 @@ package com.leary.marvelheroesapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-
-import com.leary.marvelheroesapp.UI.Theme.Theme.MarvelHeroesAppTheme
-import com.leary.marvelheroesapp.Utils.Navigation
+import com.leary.marvelheroesapp.UI.Navigations.Navigation
+import com.leary.marvelheroesapp.UI.Theme.MarvelHeroesAppTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -28,10 +26,14 @@ class MainActivity : ComponentActivity() {
             MarvelHeroesAppTheme {
 
                 ApplySystemBarColors()
-
+                val backgroundColor = if (isSystemInDarkTheme()) {
+                    Color.DarkGray
+                } else {
+                    Color.Gray
+                }
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = backgroundColor
                 ) {
                     Navigation()
                 }

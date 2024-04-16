@@ -65,6 +65,22 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
 
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+
+
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    implementation ("com.squareup.moshi:moshi:1.15.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
+    implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
+
+
+    implementation("io.arrow-kt:arrow-core:1.0.0")
+    implementation("io.arrow-kt:arrow-core-retrofit:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     androidTestImplementation ("androidx.test.ext:junit:1.1.5")
     androidTestImplementation (libs.androidx.espresso.core)
     androidTestImplementation (platform("androidx.compose:compose-bom:2024.02.02"))
