@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 import com.leary.marvelheroesapp.UI.Model.ModelHero
 
 
-data class HeroMoshi(
+data class HeroNetwork(
     val id: String,
     val name: String,
     val description: String,
@@ -12,7 +12,7 @@ data class HeroMoshi(
 )
 
 
-fun HeroMoshi.toUI(
+fun HeroNetwork.toUI(
     heroName: String,
     backgroundColor: Color
 ) =
@@ -23,7 +23,7 @@ fun HeroMoshi.toUI(
         backgroundColor = backgroundColor
     )
 
-fun HeroMoshi.toSingleUI() =
+fun HeroNetwork.toSingleUI() =
     ModelHero(
         id = id.toInt(),
         name = name,
