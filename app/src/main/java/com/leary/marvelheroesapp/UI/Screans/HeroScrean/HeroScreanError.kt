@@ -35,8 +35,8 @@ fun HeroScreanError(errorMessage: String, hero: ModelHero, navigateUp: () -> Uni
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Image(
-                modifier = androidx.compose.ui.Modifier.size(Size.noInternetLogo.size),
-                painter = painterResource(id = R.drawable.loading),
+                modifier = Modifier.size(Size.noInternetLogo.size),
+                painter = painterResource(id = R.drawable.loading_img),
                 contentDescription = stringResource(R.string.connection_error)
             )
             Spacer(

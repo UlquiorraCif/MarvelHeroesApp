@@ -35,8 +35,8 @@ fun HeroScrollScreanError(errorMessage: String, heroValues: List<ModelHero>, onH
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                modifier = androidx.compose.ui.Modifier.size(Size.noInternetLogo.size),
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                modifier = Modifier.size(Size.noInternetLogo.size),
+                painter = painterResource(id = R.drawable.loading_img),
                 contentDescription = stringResource(R.string.connection_error)
             )
             Spacer(

@@ -1,6 +1,8 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    id ("com.android.application")
+    id ("kotlin-android")
+    id ("kotlin-kapt")
+
 }
 
 android {
@@ -81,6 +83,11 @@ dependencies {
     implementation("io.arrow-kt:arrow-core:1.0.0")
     implementation("io.arrow-kt:arrow-core-retrofit:1.0.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+
+    implementation ("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
+
     androidTestImplementation ("androidx.test.ext:junit:1.1.5")
     androidTestImplementation (libs.androidx.espresso.core)
     androidTestImplementation (platform("androidx.compose:compose-bom:2024.02.02"))

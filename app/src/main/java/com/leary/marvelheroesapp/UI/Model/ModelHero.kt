@@ -3,8 +3,8 @@ package com.leary.marvelheroesapp.UI.Model
 import androidx.compose.ui.graphics.Color
 
 data class ModelHero(
-
     val id: Int = 0,
+    val serverId: String = "1111",
     val name: String = "",
     val description: String = "",
     val image: String=" ",

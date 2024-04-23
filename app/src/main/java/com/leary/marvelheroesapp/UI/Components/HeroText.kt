@@ -62,7 +62,7 @@ fun HeroText(hero: ModelHero) {
             modifier = Modifier
                 .background(
                     color = Color.Black.copy(alpha = 0.5f)
-                ) // Отступы для текста
+                )
         ) {
             Text(
                 text = hero.description,
