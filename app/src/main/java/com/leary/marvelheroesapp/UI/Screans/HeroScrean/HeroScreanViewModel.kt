@@ -5,13 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leary.marvelheroesapp.Database.toHeroUI
+import com.leary.marvelheroesapp.Database.HeroMapper
 import com.leary.marvelheroesapp.Domain.HeroRepository
 import com.leary.marvelheroesapp.Domain.HeroScreanDomain
 import kotlinx.coroutines.launch
 
 class HeroScreanViewModel(val repository: HeroRepository): ViewModel() {
-
 
     var singleHeroUIState: HeroScreanUiState by mutableStateOf(HeroScreanUiState.Loading)
 
@@ -23,10 +22,10 @@ class HeroScreanViewModel(val repository: HeroRepository): ViewModel() {
                 when (heroScreanDomain) {
                     is HeroScreanDomain.Error -> HeroScreanUiState.Error(
                         errorMessage = heroScreanDomain.errorMessage,
-                        reserveSingleHeroUiValue = heroScreanDomain.singleHeroValue.toHeroUI()
+                        reserveSingleHeroUiValue = HeroMapper.toHeroUI(heroScreanDomain.singleHeroValue)
                     )
                     is HeroScreanDomain.Success -> HeroScreanUiState.Success(
-                        singleHeroUIValue = heroScreanDomain.singleHeroValue.toHeroUI()
+                        singleHeroUIValue = HeroMapper.toHeroUI(heroScreanDomain.singleHeroValue)
                     )
                     is HeroScreanDomain.Loading -> HeroScreanUiState.Loading
                 }
