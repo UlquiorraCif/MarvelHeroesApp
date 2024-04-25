@@ -1,7 +1,6 @@
 package com.leary.marvelheroesapp.Database
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -24,7 +23,6 @@ abstract class DatabaseHero: RoomDatabase() {
                     DatabaseHero::class.java,
                     "marvel.db"
                 ).build()
-                Log.d("Database", "Database created successfully")
                 INSTANCE = instance
                 instance
             }

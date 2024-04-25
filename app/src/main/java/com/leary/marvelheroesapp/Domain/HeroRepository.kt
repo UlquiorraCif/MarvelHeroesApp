@@ -10,9 +10,10 @@ import com.leary.marvelheroesapp.UI.Assets.SampleData
 
 class HeroRepository(private val heroDao: HeroDao) {
 
-    suspend fun upsertHero(heroDatabaseModel: HeroDatabaseModel){
+    suspend fun upsertHero (heroDatabaseModel: HeroDatabaseModel){
         heroDao.upsertHero(heroDatabaseModel)
     }
+
 
     suspend fun updateHero(heroDatabaseModel: HeroDatabaseModel){
         heroDao.updateHero(heroDatabaseModel)
