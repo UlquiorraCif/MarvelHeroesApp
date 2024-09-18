@@ -28,7 +28,7 @@ import com.leary.marvelheroesapp.UI.Theme.interFamily
 fun HeroCard(hero: ModelHero, onHeroImageTaped: (Int, String) -> Unit){
     Box(
         modifier = Modifier
-            .clickable{ onHeroImageTaped(hero.id, hero.name)}
+            .clickable{ onHeroImageTaped(hero.id, hero.serverId)}
             .shadow(
                 elevation = Spaces.shadowElevation,
                 shape = Shapes.medium,
@@ -44,7 +44,6 @@ fun HeroCard(hero: ModelHero, onHeroImageTaped: (Int, String) -> Unit){
             contentDescription = hero.name,
             contentScale = ContentScale.Crop,
             placeholder = painterResource(id = R.drawable.loading),
-
             modifier = Modifier
                 .size(
                     width = Size.heroCard.width,

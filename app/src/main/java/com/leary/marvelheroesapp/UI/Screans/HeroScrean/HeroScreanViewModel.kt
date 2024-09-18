@@ -5,42 +5,30 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leary.marvelheroesapp.Network.Api.HeroApi
-import com.leary.marvelheroesapp.Network.Data.toSingleUI
-import com.leary.marvelheroesapp.Network.Data.toStringType
-import com.leary.marvelheroesapp.Network.Enther.Either
-import com.leary.marvelheroesapp.UI.Model.ModelHero
-import com.leary.marvelheroesapp.UI.Screans.HeroScrollScrean.HeroScrollViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.leary.marvelheroesapp.Database.HeroMapper
+import com.leary.marvelheroesapp.Domain.HeroRepository
+import com.leary.marvelheroesapp.Domain.HeroScreanDomain
 import kotlinx.coroutines.launch
 
-class HeroScreanViewModel: ViewModel() {
-
-    private var _reserveSingleHeroUIState = MutableStateFlow(ModelHero())
+class HeroScreanViewModel(val repository: HeroRepository): ViewModel() {
 
     var singleHeroUIState: HeroScreanUiState by mutableStateOf(HeroScreanUiState.Loading)
 
-    fun updateHeroForHeroScrean(id: Int, heroName: String) {
+    fun updateHeroForHeroScrean(id: Int, serverId: String) {
 
         viewModelScope.launch {
-            val response = HeroApi.heroesRetrofitService.getSingleMarvelCharacter(id = id)
+            val heroScreanDomain = repository.singleHero(heroID = id, heroServerID = serverId)
             singleHeroUIState =
-                when (response) {
-                    is Either.Fail -> HeroScreanUiState.Error(
-                        errorMessage = response.value.toStringType(),
-                        reserveSingleHeroUiValue = reserveUpdateHero(heroName = heroName)
+                when (heroScreanDomain) {
+                    is HeroScreanDomain.Error -> HeroScreanUiState.Error(
+                        errorMessage = heroScreanDomain.errorMessage,
+                        reserveSingleHeroUiValue = HeroMapper.toHeroUI(heroScreanDomain.singleHeroValue)
                     )
-                    is Either.Success -> HeroScreanUiState.Success(
-                        singleHeroUIValue = response.value.data.result[0].toSingleUI()
+                    is HeroScreanDomain.Success -> HeroScreanUiState.Success(
+                        singleHeroUIValue = HeroMapper.toHeroUI(heroScreanDomain.singleHeroValue)
                     )
+                    is HeroScreanDomain.Loading -> HeroScreanUiState.Loading
                 }
         }
-    }
-    fun reserveUpdateHero(heroName: String): ModelHero {
-        val chooseHeroViewModel = HeroScrollViewModel()
-        val currentHeroValues = chooseHeroViewModel.reserveHeroUIState.value
-        _reserveSingleHeroUIState.value = currentHeroValues.find { it.name == heroName }?: ModelHero()
-
-        return _reserveSingleHeroUIState.value
     }
 }

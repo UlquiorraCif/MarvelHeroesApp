@@ -6,21 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leary.marvelheroesapp.Network.Api.HeroApi
-import com.leary.marvelheroesapp.Network.Data.toStringType
-import com.leary.marvelheroesapp.Network.Data.toUI
-import com.leary.marvelheroesapp.Network.Enther.Either
-import com.leary.marvelheroesapp.UI.Assets.SampleData
-import com.leary.marvelheroesapp.UI.Model.ModelHero
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.leary.marvelheroesapp.Database.HeroMapper
+import com.leary.marvelheroesapp.Domain.HeroRepository
+import com.leary.marvelheroesapp.Domain.HeroScrollScreanDomain
 import kotlinx.coroutines.launch
 
-class HeroScrollViewModel: ViewModel() {
-
-    private var _reserveHeroUIState = MutableStateFlow(listOf( ModelHero()))
-    val reserveHeroUIState: StateFlow<List<ModelHero>> = _reserveHeroUIState.asStateFlow()
+class HeroScrollViewModel(val repository: HeroRepository) : ViewModel() {
 
     var heroesUiState: HeroScrollUiState by mutableStateOf(HeroScrollUiState.Loading)
 
@@ -29,29 +20,36 @@ class HeroScrollViewModel: ViewModel() {
     }
 
     fun getHeroesInfo() {
-        _reserveHeroUIState.value = SampleData.heroesSample
-
         viewModelScope.launch {
-            val response = HeroApi.heroesRetrofitService.getMarvelCharacters()
-            heroesUiState =
-                when (response) {
-                    is Either.Fail -> HeroScrollUiState.Error(
-                        errorMessage = response.value.toStringType(),
-                        reserveHeroUiValues = _reserveHeroUIState.value
-                    )
-                    is Either.Success -> HeroScrollUiState.Success(
-                        heroUIValues = response.value.data.result.mapIndexed { index, heroMoshi ->
-                            heroMoshi.toUI(
-                                toDetermineHeroNameVisiblePart(heroMoshi.name),
-                                toDetermineBackgroundColor(index)
-                            )
-                        }
-                    )
+            val heroScrollScreenDomain = repository.allHeroes()
+            heroesUiState = when (heroScrollScreenDomain) {
+                is HeroScrollScreanDomain.Error -> {
+                    val reserveHeroUiValues = heroScrollScreenDomain.heroValues.mapIndexed { index, heroEntity ->
+                        HeroMapper.toUI(
+                            heroDatabaseModel = heroEntity,
+                            heroName = toDetermineHeroNameVisiblePart(heroEntity.name),
+                            backgroundColor = toDetermineBackgroundColor(index)
+                        )
+                    }
+                    HeroScrollUiState.Error(errorMessage = heroScrollScreenDomain.errorMessage, reserveHeroUiValues)
                 }
+                is HeroScrollScreanDomain.Success -> {
+                    val heroUIValues = heroScrollScreenDomain.heroValues.mapIndexed { index, heroEntity ->
+                        HeroMapper.toUI(
+                            heroDatabaseModel = heroEntity,
+                            heroName = toDetermineHeroNameVisiblePart(heroEntity.name),
+                            backgroundColor = toDetermineBackgroundColor(index)
+                        )
+                    }
+                    HeroScrollUiState.Success(heroUIValues)
+                }
+                is HeroScrollScreanDomain.Loading -> HeroScrollUiState.Loading
+            }
         }
     }
 
-    fun toDetermineBackgroundColor(index: Int): Color {
+
+    private    fun toDetermineBackgroundColor(index: Int): Color {
         val determinedColor =
             when(index % 7){
                 0 -> Color(119, 3,8)
@@ -65,7 +63,7 @@ class HeroScrollViewModel: ViewModel() {
         return determinedColor
     }
 
-    fun toDetermineHeroNameVisiblePart(inputHeroName: String): String{
+    private   fun toDetermineHeroNameVisiblePart(inputHeroName: String): String{
         if(inputHeroName.length > 15){
             var outputHeroName = ""
             val heroNameArray = inputHeroName.split(" ")
