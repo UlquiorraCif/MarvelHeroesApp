@@ -6,12 +6,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leary.marvelheroesapp.Database.HeroMapper
+import com.leary.marvelheroesapp.Database.toUI
 import com.leary.marvelheroesapp.Domain.HeroRepository
-import com.leary.marvelheroesapp.Domain.HeroScrollScreanDomain
+import com.leary.marvelheroesapp.Network.Enther.Either
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HeroScrollViewModel(val repository: HeroRepository) : ViewModel() {
+@HiltViewModel
+class HeroScrollViewModel @Inject constructor(val repository: HeroRepository) : ViewModel() {
 
     var heroesUiState: HeroScrollUiState by mutableStateOf(HeroScrollUiState.Loading)
 
@@ -22,28 +25,26 @@ class HeroScrollViewModel(val repository: HeroRepository) : ViewModel() {
     fun getHeroesInfo() {
         viewModelScope.launch {
             val heroScrollScreenDomain = repository.allHeroes()
-            heroesUiState = when (heroScrollScreenDomain) {
-                is HeroScrollScreanDomain.Error -> {
-                    val reserveHeroUiValues = heroScrollScreenDomain.heroValues.mapIndexed { index, heroEntity ->
-                        HeroMapper.toUI(
-                            heroDatabaseModel = heroEntity,
-                            heroName = toDetermineHeroNameVisiblePart(heroEntity.name),
-                            backgroundColor = toDetermineBackgroundColor(index)
+            heroesUiState =
+                when (heroScrollScreenDomain) {
+                is Either.Fail -> HeroScrollUiState.Error(
+                    errorMessage = heroScrollScreenDomain.value.errorMessage,
+                    reserveHeroUiValues = heroScrollScreenDomain.value.reserveHeroValues.mapIndexed { index, heroDatabaseModel ->
+                        heroDatabaseModel.toUI(
+
+                            toDetermineHeroNameVisiblePart(heroDatabaseModel.name),
+                            toDetermineBackgroundColor(index)
                         )
                     }
-                    HeroScrollUiState.Error(errorMessage = heroScrollScreenDomain.errorMessage, reserveHeroUiValues)
-                }
-                is HeroScrollScreanDomain.Success -> {
-                    val heroUIValues = heroScrollScreenDomain.heroValues.mapIndexed { index, heroEntity ->
-                        HeroMapper.toUI(
-                            heroDatabaseModel = heroEntity,
-                            heroName = toDetermineHeroNameVisiblePart(heroEntity.name),
-                            backgroundColor = toDetermineBackgroundColor(index)
-                        )
-                    }
-                    HeroScrollUiState.Success(heroUIValues)
-                }
-                is HeroScrollScreanDomain.Loading -> HeroScrollUiState.Loading
+                )
+               is Either.Success ->HeroScrollUiState.Success(
+                   heroUIValues = heroScrollScreenDomain.value.mapIndexed { index, heroDatabaseModel ->
+                       heroDatabaseModel.toUI(
+                           toDetermineHeroNameVisiblePart(heroDatabaseModel.name),
+                           toDetermineBackgroundColor(index)
+                       )
+                   }
+               )
             }
         }
     }

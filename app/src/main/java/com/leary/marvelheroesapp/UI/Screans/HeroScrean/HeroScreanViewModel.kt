@@ -5,12 +5,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leary.marvelheroesapp.Database.HeroMapper
+import com.leary.marvelheroesapp.Database.toHeroUI
 import com.leary.marvelheroesapp.Domain.HeroRepository
-import com.leary.marvelheroesapp.Domain.HeroScreanDomain
+import com.leary.marvelheroesapp.Network.Enther.Either
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HeroScreanViewModel(val repository: HeroRepository): ViewModel() {
+@HiltViewModel
+class HeroScreanViewModel @Inject constructor(val repository: HeroRepository): ViewModel() {
 
     var singleHeroUIState: HeroScreanUiState by mutableStateOf(HeroScreanUiState.Loading)
 
@@ -20,14 +23,13 @@ class HeroScreanViewModel(val repository: HeroRepository): ViewModel() {
             val heroScreanDomain = repository.singleHero(heroID = id, heroServerID = serverId)
             singleHeroUIState =
                 when (heroScreanDomain) {
-                    is HeroScreanDomain.Error -> HeroScreanUiState.Error(
-                        errorMessage = heroScreanDomain.errorMessage,
-                        reserveSingleHeroUiValue = HeroMapper.toHeroUI(heroScreanDomain.singleHeroValue)
+                    is Either.Fail -> HeroScreanUiState.Error(
+                        errorMessage = heroScreanDomain.value.errorMessage,
+                        reserveSingleHeroUiValue = heroScreanDomain.value.reserveHeroValue.toHeroUI()
                     )
-                    is HeroScreanDomain.Success -> HeroScreanUiState.Success(
-                        singleHeroUIValue = HeroMapper.toHeroUI(heroScreanDomain.singleHeroValue)
+                    is Either.Success -> HeroScreanUiState.Success(
+                        singleHeroUIValue = heroScreanDomain.value.toHeroUI()
                     )
-                    is HeroScreanDomain.Loading -> HeroScreanUiState.Loading
                 }
         }
     }

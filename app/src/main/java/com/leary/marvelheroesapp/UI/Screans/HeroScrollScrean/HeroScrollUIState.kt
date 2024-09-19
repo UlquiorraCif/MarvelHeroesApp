@@ -1,6 +1,6 @@
 package com.leary.marvelheroesapp.UI.Screans.HeroScrollScrean
 
-import com.leary.marvelheroesapp.UI.Model.ModelHero
+import com.leary.marvelheroesapp.UI.Data.ModelHero
 
 sealed interface HeroScrollUiState{
     data class Success(val heroUIValues: List<ModelHero>): HeroScrollUiState

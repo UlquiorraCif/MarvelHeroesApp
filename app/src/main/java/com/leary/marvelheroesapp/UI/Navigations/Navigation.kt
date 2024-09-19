@@ -1,13 +1,11 @@
 package com.leary.marvelheroesapp.UI.Navigations
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.leary.marvelheroesapp.Database.DatabaseHero
-import com.leary.marvelheroesapp.Domain.HeroRepository
 import com.leary.marvelheroesapp.UI.Screans.HeroScrean.HeroScrean
 import com.leary.marvelheroesapp.UI.Screans.HeroScrean.HeroScreanUiState
 import com.leary.marvelheroesapp.UI.Screans.HeroScrean.HeroScreanViewModel
@@ -22,16 +20,9 @@ enum class HeroesScreen {
 
 @Composable
 fun Navigation(navController: NavHostController = rememberNavController()){
-    val context = LocalContext.current
-    val database by lazy {
-        DatabaseHero.getDatabase(context = context)
-    }
-    val repository by lazy {
-        HeroRepository(database.heroDao())
-    }
-    val heroScrollViewModel = HeroScrollViewModel(repository = repository)
-    val heroScreanViewModel = HeroScreanViewModel(repository = repository)
 
+    val heroScrollViewModel = hiltViewModel<HeroScrollViewModel>()
+    val heroScreanViewModel = hiltViewModel<HeroScreanViewModel>()
     NavHost(
         navController = navController,
         startDestination = HeroesScreen.Start.name

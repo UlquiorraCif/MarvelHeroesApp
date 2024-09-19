@@ -1,4 +1,4 @@
-package com.leary.marvelheroesapp.UI.Model
+package com.leary.marvelheroesapp.UI.Data
 
 import androidx.compose.ui.graphics.Color
 

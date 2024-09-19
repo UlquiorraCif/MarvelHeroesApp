@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import com.leary.marvelheroesapp.UI.Components.HeroCard
 import com.leary.marvelheroesapp.UI.Components.HeroHeader
-import com.leary.marvelheroesapp.UI.Model.ModelHero
+import com.leary.marvelheroesapp.UI.Data.ModelHero
 import com.leary.marvelheroesapp.UI.Theme.Size
 import com.leary.marvelheroesapp.UI.Theme.Spaces
 

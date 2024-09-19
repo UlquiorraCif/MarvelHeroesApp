@@ -19,7 +19,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.leary.marvelheroesapp.R
 import com.leary.marvelheroesapp.UI.Components.HeroText
-import com.leary.marvelheroesapp.UI.Model.ModelHero
+import com.leary.marvelheroesapp.UI.Data.ModelHero
 import com.leary.marvelheroesapp.UI.Theme.Size
 import com.leary.marvelheroesapp.UI.Theme.Spaces
 

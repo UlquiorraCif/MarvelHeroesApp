@@ -9,8 +9,10 @@ import androidx.room.Upsert
 interface HeroDao {
     @Update
     suspend fun updateHero(hero: HeroDatabaseModel)
+
     @Upsert
     suspend fun upsertHero(hero: HeroDatabaseModel)
+
     @Query("SELECT * FROM HeroDatabaseModel")
     suspend fun getAllHeroes(): List<HeroDatabaseModel>
 

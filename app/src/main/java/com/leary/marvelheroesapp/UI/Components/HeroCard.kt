@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.leary.marvelheroesapp.R
-import com.leary.marvelheroesapp.UI.Model.ModelHero
+import com.leary.marvelheroesapp.UI.Data.ModelHero
 import com.leary.marvelheroesapp.UI.Theme.Shapes
 import com.leary.marvelheroesapp.UI.Theme.Size
 import com.leary.marvelheroesapp.UI.Theme.Spaces

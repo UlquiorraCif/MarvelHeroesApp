@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.leary.marvelheroesapp.UI.Model.ModelHero
+import com.leary.marvelheroesapp.UI.Data.ModelHero
 import com.leary.marvelheroesapp.UI.Theme.Size
 import com.leary.marvelheroesapp.UI.Theme.Spaces
 import com.leary.marvelheroesapp.UI.Theme.interFamily
