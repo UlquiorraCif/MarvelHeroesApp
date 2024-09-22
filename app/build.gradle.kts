@@ -3,7 +3,7 @@ plugins {
     id ("kotlin-android")
     id ("kotlin-kapt")
     id("com.google.dagger.hilt.android")
-
+    id ("com.google.gms.google-services")
 }
 
 android {
@@ -56,6 +56,10 @@ android {
 }
 
 dependencies {
+//Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-messaging")
 
     implementation("io.coil-kt:coil-compose:2.6.0")
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.30.0")
