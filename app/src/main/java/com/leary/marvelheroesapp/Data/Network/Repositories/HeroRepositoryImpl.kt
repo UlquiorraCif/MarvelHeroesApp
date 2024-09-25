@@ -16,14 +16,14 @@ import javax.inject.Inject
 class HeroRepositoryImpl @Inject constructor(
     private val heroDao: HeroDao,
     private val heroApiService: HeroApiService
-): HeroRepository {
+) : HeroRepository {
 
-    override suspend fun upsertHero (heroDatabaseModel: HeroDatabaseModel){
+    override suspend fun upsertHero(heroDatabaseModel: HeroDatabaseModel) {
         heroDao.upsertHero(heroDatabaseModel)
     }
 
 
-    override suspend fun updateHero(heroDatabaseModel: HeroDatabaseModel){
+    override suspend fun updateHero(heroDatabaseModel: HeroDatabaseModel) {
         heroDao.updateHero(heroDatabaseModel)
     }
 
@@ -32,7 +32,7 @@ class HeroRepositoryImpl @Inject constructor(
 
         val response = heroApiService.getMarvelCharacters()
 
-        return when(response){
+        return when (response) {
             is Either.Fail -> {
                 if (databaseHeroValues.isEmpty()) {
                     SampleData.heroesSample.map { heroDatabaseModel ->
@@ -48,10 +48,11 @@ class HeroRepositoryImpl @Inject constructor(
 
                 )
             }
+
             is Either.Success -> {
 
                 response.value.data.result.map { heroMoshi ->
-                    if(databaseHeroValues.find { it.serverId == heroMoshi.id } == null)
+                    if (databaseHeroValues.find { it.serverId == heroMoshi.id } == null)
                         upsertHero(heroMoshi.toEntity())
                 }
 
@@ -65,12 +66,17 @@ class HeroRepositoryImpl @Inject constructor(
 
 
     @SuppressLint("SuspiciousIndentation")
-    override suspend fun singleHero(heroID: Int, heroServerID: String): Either<SingleHeroReserve, HeroDatabaseModel> {
+    override suspend fun singleHero(
+        heroID: Int,
+        heroServerID: String
+    ): Either<SingleHeroReserve, HeroDatabaseModel> {
         val databaseHeroValue = heroDao.getSingleHero(heroID)
-
-        return if(databaseHeroValue.description.isEmpty()){
-            val response = heroApiService.getSingleMarvelCharacter(id = heroServerID.toInt())
-            when(response) {
+        val verifiedHeroServerID =
+            if (heroServerID != "-1") heroServerID else databaseHeroValue.serverId
+        if (databaseHeroValue.description.isEmpty()) {
+            val response =
+                heroApiService.getSingleMarvelCharacter(id = verifiedHeroServerID.toInt())
+            when (response) {
                 is Either.Fail ->
                     return Either.fail(
                         SingleHeroReserve(
@@ -87,9 +93,13 @@ class HeroRepositoryImpl @Inject constructor(
                 }
             }
         } else {
-            Either.Success(
+            return Either.Success(
                 databaseHeroValue
             )
         }
+    }
+
+    override suspend fun randSingleHero(): HeroDatabaseModel {
+        return heroDao.getRandSingleHero()
     }
 }

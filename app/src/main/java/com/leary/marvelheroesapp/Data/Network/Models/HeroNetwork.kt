@@ -15,5 +15,5 @@ fun HeroNetwork.toEntity() =
         serverId = id,
         name = name,
         description = description,
-        image = thumbnail.path + "." +  thumbnail.extension
+        image = thumbnail.path + "." + thumbnail.extension
     )

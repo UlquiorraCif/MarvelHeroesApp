@@ -24,8 +24,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        WindowCompat.setDecorFitsSystemWindows(window,false)
 
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        val heroId = intent.getIntExtra("heroId", -1)
+        Log.d("FCM Mes", "$heroId")
+        getToken()
         setContent {
             MarvelHeroesAppTheme {
 
@@ -39,29 +43,27 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = backgroundColor
                 ) {
-                    Navigation()
+                    Navigation(heroId = heroId)
                 }
             }
         }
+
+    }
+
+    private fun getToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w("FCM token", "Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
-
-            // Get new FCM registration token
             val token = task.result
-
-            // Log and toast
-            //val msg = getString(R.string.msg_token_fmt, token)
             Log.d("FCM token", token)
-            //Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
         })
     }
 
 
     @Composable
-    fun ApplySystemBarColors(){
+    fun ApplySystemBarColors() {
         val systemUiContrller = rememberSystemUiController()
 
         SideEffect {
@@ -69,5 +71,6 @@ class MainActivity : ComponentActivity() {
             systemUiContrller.setNavigationBarColor(color = Color.Transparent)
         }
     }
+
 }
 

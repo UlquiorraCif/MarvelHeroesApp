@@ -20,5 +20,6 @@ interface HeroDao {
     @Query("SELECT * FROM HeroDatabaseModel WHERE HeroDatabaseModel.id == :heroID")
     suspend fun getSingleHero(heroID: Int): HeroDatabaseModel
 
-
+    @Query("SELECT * FROM HeroDatabaseModel order by random() limit 1")
+    suspend fun getRandSingleHero(): HeroDatabaseModel
 }

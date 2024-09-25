@@ -9,6 +9,6 @@ import com.leary.marvelheroesapp.Domain.HeroDatabaseModel
     version = 1,
     exportSchema = false
 )
-abstract class DatabaseHero: RoomDatabase() {
+abstract class DatabaseHero : RoomDatabase() {
     abstract fun heroDao(): HeroDao
 }

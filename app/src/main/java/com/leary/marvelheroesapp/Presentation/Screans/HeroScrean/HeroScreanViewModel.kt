@@ -14,21 +14,30 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HeroScreanViewModel @Inject constructor(val repository: HeroRepository): ViewModel() {
+class HeroScreanViewModel @Inject constructor(private val repository: HeroRepository) :
+    ViewModel() {
 
     var singleHeroUIState: HeroScreanUiState by mutableStateOf(HeroScreanUiState.Loading)
-    fun onAction(action: ActionHero){
-        when(action){
+    fun onAction(action: ActionHero) {
+        when (action) {
             is ActionHero.OnHeroImageTapped ->
                 updateHeroForHeroScrean(
                     id = action.heroId,
                     serverId = action.heroSeverId
                 )
+
             ActionHero.OnBackToScrollHero ->
                 singleHeroUIState = HeroScreanUiState.Loading
+
+            is ActionHero.OnHeroNotificationTapped ->
+                updateHeroForHeroScrean(
+                    id = action.heroId,
+                    serverId = "-1"
+                )
         }
     }
-    fun updateHeroForHeroScrean(id: Int, serverId: String) {
+
+    private fun updateHeroForHeroScrean(id: Int, serverId: String) {
 
         viewModelScope.launch {
             val heroScreanDomain = repository.singleHero(heroID = id, heroServerID = serverId)
@@ -38,11 +47,13 @@ class HeroScreanViewModel @Inject constructor(val repository: HeroRepository): V
                         errorMessage = heroScreanDomain.value.errorMessage,
                         reserveSingleHeroUiValue = heroScreanDomain.value.reserveHeroValue.toHeroUI()
                     )
+
                     is Either.Success -> HeroScreanUiState.Success(
                         singleHeroUIValue = heroScreanDomain.value.toHeroUI()
                     )
                 }
         }
     }
+
 
 }

@@ -9,7 +9,7 @@ import com.leary.marvelheroesapp.notification.HeroesNotification
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class HeroApp: Application() {
+class HeroApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
@@ -17,7 +17,7 @@ class HeroApp: Application() {
     }
 
     private fun createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 HeroesNotification.HEROES_CHANNEl_ID,
                 "counter",
@@ -26,7 +26,8 @@ class HeroApp: Application() {
 
             channel.description = "Used for informing you about hero"
 
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
             notificationManager.createNotificationChannel(channel)
 
