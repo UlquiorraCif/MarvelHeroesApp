@@ -12,10 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.leary.marvelheroesapp.UI.Navigations.Navigation
-import com.leary.marvelheroesapp.UI.Theme.MarvelHeroesAppTheme
+import com.leary.marvelheroesapp.Presentation.Navigations.Navigation
+import com.leary.marvelheroesapp.Presentation.Theme.MarvelHeroesAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
