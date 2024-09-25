@@ -1,5 +1,3 @@
 
+https://github.com/user-attachments/assets/56db1a20-f44b-4da9-a22a-729e9c96f073
 
-https://github.com/UlquiorraCif/MarvelHeroesApp/assets/93728068/3a12483f-133b-405b-8c5b-b79b8154a2d9
-
-[Screen_recording_20240925_225546.mp4](..%2FDownloads%2FScreen_recording_20240925_225546.mp4)
