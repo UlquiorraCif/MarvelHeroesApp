@@ -1,6 +1,6 @@
 package com.leary.marvelheroesapp.Data.Network.Models
 
-import com.leary.marvelheroesapp.Domain.HeroDatabaseModel
+import com.leary.marvelheroesapp.Data.Database.HeroDatabaseModel
 
 
 data class HeroNetwork(

@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Update
 import androidx.room.Upsert
-import com.leary.marvelheroesapp.Domain.HeroDatabaseModel
 
 @Dao
 interface HeroDao {

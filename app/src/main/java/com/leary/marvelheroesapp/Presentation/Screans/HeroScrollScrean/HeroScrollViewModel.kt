@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.leary.marvelheroesapp.Data.Network.Enther.Either
-import com.leary.marvelheroesapp.Domain.Repositories.HeroRepository
+import com.leary.marvelheroesapp.Data.Repositories.HeroRepository
 import com.leary.marvelheroesapp.Domain.toUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

@@ -1,14 +1,13 @@
-package com.leary.marvelheroesapp.Data.Network.Repositories
+package com.leary.marvelheroesapp.Data.Repositories
 
 import android.annotation.SuppressLint
 import com.leary.marvelheroesapp.Assets.SampleData
 import com.leary.marvelheroesapp.Data.Database.HeroDao
+import com.leary.marvelheroesapp.Data.Database.HeroDatabaseModel
 import com.leary.marvelheroesapp.Data.Network.Api.HeroApiService
 import com.leary.marvelheroesapp.Data.Network.Enther.Either
 import com.leary.marvelheroesapp.Data.Network.Models.toEntity
 import com.leary.marvelheroesapp.Data.Network.Models.toStringType
-import com.leary.marvelheroesapp.Domain.HeroDatabaseModel
-import com.leary.marvelheroesapp.Domain.Repositories.HeroRepository
 import com.leary.marvelheroesapp.Presentation.Models.HeroReserve
 import com.leary.marvelheroesapp.Presentation.Models.SingleHeroReserve
 import javax.inject.Inject

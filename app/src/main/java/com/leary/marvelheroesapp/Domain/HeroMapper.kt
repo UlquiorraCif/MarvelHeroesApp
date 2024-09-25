@@ -1,6 +1,7 @@
 package com.leary.marvelheroesapp.Domain
 
 import androidx.compose.ui.graphics.Color
+import com.leary.marvelheroesapp.Data.Database.HeroDatabaseModel
 import com.leary.marvelheroesapp.Presentation.Models.ModelHero
 
 

@@ -1,7 +1,7 @@
-package com.leary.marvelheroesapp.Domain.Repositories
+package com.leary.marvelheroesapp.Data.Repositories
 
 import com.leary.marvelheroesapp.Data.Network.Enther.Either
-import com.leary.marvelheroesapp.Domain.HeroDatabaseModel
+import com.leary.marvelheroesapp.Data.Database.HeroDatabaseModel
 import com.leary.marvelheroesapp.Presentation.Models.HeroReserve
 import com.leary.marvelheroesapp.Presentation.Models.SingleHeroReserve
 
