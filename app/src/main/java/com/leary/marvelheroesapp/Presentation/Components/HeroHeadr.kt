@@ -10,10 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.leary.marvelheroesapp.R
 import com.leary.marvelheroesapp.Presentation.Theme.Size
 import com.leary.marvelheroesapp.Presentation.Theme.Spaces
 import com.leary.marvelheroesapp.Presentation.Theme.interFamily
+import com.leary.marvelheroesapp.Presentation.utils.isLandscape
+import com.leary.marvelheroesapp.R
 
 @Composable
 fun HeroHeader(){
@@ -28,7 +29,11 @@ fun HeroHeader(){
     Spacer(
         modifier = Modifier.size(
             width = Spaces.spacer.standartWidth,
-            height = Spaces.spacer.extendedHeight
+            height =
+            if(isLandscape())
+                Spaces.spacer.smallerHeight
+            else
+                Spaces.spacer.extendedHeight
         )
     )
     Text(
@@ -41,7 +46,11 @@ fun HeroHeader(){
     Spacer(
         modifier = Modifier.size(
             width = Spaces.spacer.standartWidth,
-            height = Spaces.spacer.theMostExtendedHeight
+            height =
+            if(isLandscape())
+                Spaces.spacer.standartHeight
+            else
+                Spaces.spacer.theMostExtendedHeight
         )
     )
 }

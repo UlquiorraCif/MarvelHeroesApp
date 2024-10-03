@@ -22,6 +22,7 @@ object Size{
     }
     object fontSizes{
         val heroNameInCard = 32.sp
+        val heroNameInCardLandscape = 20.sp
         val heroNameInSingleScreen = 34.sp
         val heroDescription = 24.sp
         val underLogoText = 28.sp
@@ -32,5 +33,9 @@ object Size{
     }
     object noInternetLogo{
         val size = 50.dp
+    }
+    object heroCardLandscape{
+        val width = 206.dp
+        val height = 330.dp
     }
 }

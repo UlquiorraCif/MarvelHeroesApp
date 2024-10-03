@@ -27,6 +27,7 @@ import com.leary.marvelheroesapp.Presentation.Models.ModelHero
 import com.leary.marvelheroesapp.Presentation.Screans.ActionHero
 import com.leary.marvelheroesapp.Presentation.Theme.Size
 import com.leary.marvelheroesapp.Presentation.Theme.Spaces
+import com.leary.marvelheroesapp.Presentation.utils.isLandscape
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -95,10 +96,18 @@ fun HeroScrollScreanResult(
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
                 contentPadding = PaddingValues(
-                    horizontal = Spaces.chooseHeroLazyRow.horizontalPadding
+                    horizontal =
+                    if(isLandscape())
+                        Spaces.chooseHeroLazyRowLandscape.horizontalPadding
+                    else
+                        Spaces.chooseHeroLazyRow.horizontalPadding
                 ),
                 horizontalArrangement = Arrangement.spacedBy(
-                    space = Spaces.chooseHeroLazyRow.horizontalArrangement
+                    space =
+                    if(isLandscape())
+                        Spaces.chooseHeroLazyRowLandscape.horizontalArrangement
+                    else
+                        Spaces.chooseHeroLazyRow.horizontalArrangement
                 ),
                 state = lazyListState,
                 flingBehavior = snapBehavior

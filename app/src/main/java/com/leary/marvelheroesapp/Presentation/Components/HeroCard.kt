@@ -2,6 +2,7 @@ package com.leary.marvelheroesapp.Presentation.Components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.LocalTextStyle
@@ -25,25 +26,40 @@ import com.leary.marvelheroesapp.Presentation.Theme.Shapes
 import com.leary.marvelheroesapp.Presentation.Theme.Size
 import com.leary.marvelheroesapp.Presentation.Theme.Spaces
 import com.leary.marvelheroesapp.Presentation.Theme.interFamily
+import com.leary.marvelheroesapp.Presentation.utils.isLandscape
 import com.leary.marvelheroesapp.R
 
 @Composable
-fun HeroCard(hero: ModelHero, onAction: (ActionHero) -> Unit){
+fun HeroCard(hero: ModelHero, onAction: (ActionHero) -> Unit) {
     Box(
         modifier = Modifier
-            .clickable{onAction(
-                ActionHero.OnHeroImageTapped(
-                    hero.id,
-                    hero.serverId
+            .clickable {
+                onAction(
+                    ActionHero.OnHeroImageTapped(
+                        hero.id,
+                        hero.serverId
+                    )
                 )
-            )}
+            }
+            .size(
+                width =
+                if (isLandscape())
+                    Size.heroCardLandscape.width
+                else
+                    Size.heroCard.width,
+                height =
+                if (isLandscape())
+                    Size.heroCardLandscape.height
+                else
+                    Size.heroCard.height
+            )
             .shadow(
                 elevation = Spaces.shadowElevation,
                 shape = Shapes.medium,
                 ambientColor = MaterialTheme.colorScheme.onBackground,
                 spotColor = MaterialTheme.colorScheme.onBackground
             )
-    ){
+    ) {
         AsyncImage(
             model = ImageRequest
                 .Builder(LocalContext.current)
@@ -53,17 +69,18 @@ fun HeroCard(hero: ModelHero, onAction: (ActionHero) -> Unit){
             contentScale = ContentScale.Crop,
             placeholder = painterResource(id = R.drawable.loading),
             modifier = Modifier
-                .size(
-                    width = Size.heroCard.width,
-                    height = Size.heroCard.height
-                )
+                .fillMaxSize()
                 .clip(Shapes.medium)
         )
         Text(
             text = hero.name,
             fontFamily = interFamily,
             fontWeight = FontWeight.ExtraBold,
-            fontSize = Size.fontSizes.heroNameInCard,
+            fontSize =
+            if(isLandscape())
+                Size.fontSizes.heroNameInCardLandscape
+            else
+                Size.fontSizes.heroNameInCard,
             color = MaterialTheme.colorScheme.onSecondary,
             style = LocalTextStyle.current.copy(textDirection = TextDirection.Content),
             modifier = Modifier
