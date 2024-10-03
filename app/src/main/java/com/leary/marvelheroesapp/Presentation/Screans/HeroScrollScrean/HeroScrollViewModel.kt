@@ -6,9 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leary.marvelheroesapp.Domain.toUI
-import com.leary.marvelheroesapp.Domain.Repositories.HeroRepository
 import com.leary.marvelheroesapp.Data.Network.Enther.Either
+import com.leary.marvelheroesapp.Data.Repositories.HeroRepository
+import com.leary.marvelheroesapp.Domain.toUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,34 +27,35 @@ class HeroScrollViewModel @Inject constructor(val repository: HeroRepository) : 
             val heroScrollScreenDomain = repository.allHeroes()
             heroesUiState =
                 when (heroScrollScreenDomain) {
-                is Either.Fail -> HeroScrollUiState.Error(
-                    errorMessage = heroScrollScreenDomain.value.errorMessage,
-                    reserveHeroUiValues = heroScrollScreenDomain.value.reserveHeroValues.mapIndexed { index, heroDatabaseModel ->
-                        heroDatabaseModel.toUI(
+                    is Either.Fail -> HeroScrollUiState.Error(
+                        errorMessage = heroScrollScreenDomain.value.errorMessage,
+                        reserveHeroUiValues = heroScrollScreenDomain.value.reserveHeroValues.mapIndexed { index, heroDatabaseModel ->
+                            heroDatabaseModel.toUI(
 
-                            toDetermineHeroNameVisiblePart(heroDatabaseModel.name),
-                            toDetermineBackgroundColor(index)
-                        )
-                    }
-                )
-               is Either.Success ->HeroScrollUiState.Success(
-                   heroUIValues = heroScrollScreenDomain.value.mapIndexed { index, heroDatabaseModel ->
-                       heroDatabaseModel.toUI(
-                           toDetermineHeroNameVisiblePart(heroDatabaseModel.name),
-                           toDetermineBackgroundColor(index)
-                       )
-                   }
-               )
-            }
+                                toDetermineHeroNameVisiblePart(heroDatabaseModel.name),
+                                toDetermineBackgroundColor(index)
+                            )
+                        }
+                    )
+
+                    is Either.Success -> HeroScrollUiState.Success(
+                        heroUIValues = heroScrollScreenDomain.value.mapIndexed { index, heroDatabaseModel ->
+                            heroDatabaseModel.toUI(
+                                toDetermineHeroNameVisiblePart(heroDatabaseModel.name),
+                                toDetermineBackgroundColor(index)
+                            )
+                        }
+                    )
+                }
         }
     }
 
 
-    private    fun toDetermineBackgroundColor(index: Int): Color {
+    private fun toDetermineBackgroundColor(index: Int): Color {
         val determinedColor =
-            when(index % 7){
-                0 -> Color(119, 3,8)
-                1 -> Color(152, 21,26)
+            when (index % 7) {
+                0 -> Color(119, 3, 8)
+                1 -> Color(152, 21, 26)
                 2 -> Color(7, 31, 173, 255)
                 3 -> Color(2, 92, 5, 255)
                 4 -> Color(114, 122, 7, 255)
@@ -64,13 +65,13 @@ class HeroScrollViewModel @Inject constructor(val repository: HeroRepository) : 
         return determinedColor
     }
 
-    private   fun toDetermineHeroNameVisiblePart(inputHeroName: String): String{
-        if(inputHeroName.length > 15){
+    private fun toDetermineHeroNameVisiblePart(inputHeroName: String): String {
+        if (inputHeroName.length > 15) {
             var outputHeroName = ""
             val heroNameArray = inputHeroName.split(" ")
 
             heroNameArray.forEach { namePart ->
-                if((outputHeroName + namePart).length > 15){
+                if ((outputHeroName + namePart).length > 15) {
                     return "$outputHeroName..."
                 }
                 outputHeroName += namePart

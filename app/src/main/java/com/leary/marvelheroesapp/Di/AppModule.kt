@@ -48,6 +48,7 @@ object AppModule {
             .addNetworkInterceptor(authInterceptor)
             .build()
     }
+
     @Provides
     @Singleton
     fun provideMoshi(): Moshi {
@@ -55,6 +56,7 @@ object AppModule {
             .add(com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory())
             .build()
     }
+
     @Provides
     @Singleton
     fun provideHeroApi(moshi: Moshi, client: OkHttpClient): HeroApiService {
@@ -62,7 +64,8 @@ object AppModule {
             .client(client)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(
-                MoshiConverterFactory.create(moshi))
+                MoshiConverterFactory.create(moshi)
+            )
             .addCallAdapterFactory(EitherCallAdapterFactory())
             .baseUrl(BASE_URL)
             .build()

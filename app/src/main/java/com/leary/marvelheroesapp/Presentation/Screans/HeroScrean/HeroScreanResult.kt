@@ -17,16 +17,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.leary.marvelheroesapp.R
-import com.leary.marvelheroesapp.Presentation.Screans.ActionHero
 import com.leary.marvelheroesapp.Presentation.Components.HeroText
 import com.leary.marvelheroesapp.Presentation.Models.ModelHero
+import com.leary.marvelheroesapp.Presentation.Screans.ActionHero
 import com.leary.marvelheroesapp.Presentation.Theme.Size
 import com.leary.marvelheroesapp.Presentation.Theme.Spaces
+import com.leary.marvelheroesapp.R
 
 @Composable
-fun HeroScreanResult(hero: ModelHero, onAction: (ActionHero)-> Unit){
-    Box (modifier = Modifier.fillMaxSize()){
+fun HeroScreanResult(hero: ModelHero, onAction: (ActionHero) -> Unit) {
+    Box(modifier = Modifier.fillMaxSize()) {
         AsyncImage(
             model = ImageRequest
                 .Builder(LocalContext.current)
@@ -43,7 +43,7 @@ fun HeroScreanResult(hero: ModelHero, onAction: (ActionHero)-> Unit){
                     top = Spaces.singleHeroColumn
                 )
         ) {
-            IconButton(onClick ={
+            IconButton(onClick = {
                 onAction(ActionHero.OnBackToScrollHero)
             }
 

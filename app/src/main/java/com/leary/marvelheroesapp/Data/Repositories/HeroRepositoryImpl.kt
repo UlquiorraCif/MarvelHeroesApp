@@ -1,14 +1,13 @@
-package com.leary.marvelheroesapp.Data.Network.Repositories
+package com.leary.marvelheroesapp.Data.Repositories
 
 import android.annotation.SuppressLint
 import com.leary.marvelheroesapp.Assets.SampleData
 import com.leary.marvelheroesapp.Data.Database.HeroDao
+import com.leary.marvelheroesapp.Data.Database.HeroDatabaseModel
 import com.leary.marvelheroesapp.Data.Network.Api.HeroApiService
 import com.leary.marvelheroesapp.Data.Network.Enther.Either
 import com.leary.marvelheroesapp.Data.Network.Models.toEntity
 import com.leary.marvelheroesapp.Data.Network.Models.toStringType
-import com.leary.marvelheroesapp.Domain.HeroDatabaseModel
-import com.leary.marvelheroesapp.Domain.Repositories.HeroRepository
 import com.leary.marvelheroesapp.Presentation.Models.HeroReserve
 import com.leary.marvelheroesapp.Presentation.Models.SingleHeroReserve
 import javax.inject.Inject
@@ -16,14 +15,14 @@ import javax.inject.Inject
 class HeroRepositoryImpl @Inject constructor(
     private val heroDao: HeroDao,
     private val heroApiService: HeroApiService
-): HeroRepository {
+) : HeroRepository {
 
-    override suspend fun upsertHero (heroDatabaseModel: HeroDatabaseModel){
+    override suspend fun upsertHero(heroDatabaseModel: HeroDatabaseModel) {
         heroDao.upsertHero(heroDatabaseModel)
     }
 
 
-    override suspend fun updateHero(heroDatabaseModel: HeroDatabaseModel){
+    override suspend fun updateHero(heroDatabaseModel: HeroDatabaseModel) {
         heroDao.updateHero(heroDatabaseModel)
     }
 
@@ -32,7 +31,7 @@ class HeroRepositoryImpl @Inject constructor(
 
         val response = heroApiService.getMarvelCharacters()
 
-        return when(response){
+        return when (response) {
             is Either.Fail -> {
                 if (databaseHeroValues.isEmpty()) {
                     SampleData.heroesSample.map { heroDatabaseModel ->
@@ -48,10 +47,11 @@ class HeroRepositoryImpl @Inject constructor(
 
                 )
             }
+
             is Either.Success -> {
 
                 response.value.data.result.map { heroMoshi ->
-                    if(databaseHeroValues.find { it.serverId == heroMoshi.id } == null)
+                    if (databaseHeroValues.find { it.serverId == heroMoshi.id } == null)
                         upsertHero(heroMoshi.toEntity())
                 }
 
@@ -65,12 +65,17 @@ class HeroRepositoryImpl @Inject constructor(
 
 
     @SuppressLint("SuspiciousIndentation")
-    override suspend fun singleHero(heroID: Int, heroServerID: String): Either<SingleHeroReserve, HeroDatabaseModel> {
+    override suspend fun singleHero(
+        heroID: Int,
+        heroServerID: String
+    ): Either<SingleHeroReserve, HeroDatabaseModel> {
         val databaseHeroValue = heroDao.getSingleHero(heroID)
-
-        return if(databaseHeroValue.description.isEmpty()){
-            val response = heroApiService.getSingleMarvelCharacter(id = heroServerID.toInt())
-            when(response) {
+        val verifiedHeroServerID =
+            if (heroServerID != "-1") heroServerID else databaseHeroValue.serverId
+        if (databaseHeroValue.description.isEmpty()) {
+            val response =
+                heroApiService.getSingleMarvelCharacter(id = verifiedHeroServerID.toInt())
+            when (response) {
                 is Either.Fail ->
                     return Either.fail(
                         SingleHeroReserve(
@@ -87,9 +92,13 @@ class HeroRepositoryImpl @Inject constructor(
                 }
             }
         } else {
-            Either.Success(
+            return Either.Success(
                 databaseHeroValue
             )
         }
+    }
+
+    override suspend fun randSingleHero(): HeroDatabaseModel {
+        return heroDao.getRandSingleHero()
     }
 }

@@ -16,16 +16,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.leary.marvelheroesapp.R
-import com.leary.marvelheroesapp.Presentation.Screans.ActionHero
 import com.leary.marvelheroesapp.Presentation.Models.ModelHero
+import com.leary.marvelheroesapp.Presentation.Screans.ActionHero
 import com.leary.marvelheroesapp.Presentation.Theme.Shapes
 import com.leary.marvelheroesapp.Presentation.Theme.Size
 import com.leary.marvelheroesapp.Presentation.Theme.Spaces
 import com.leary.marvelheroesapp.Presentation.Theme.interFamily
+import com.leary.marvelheroesapp.R
 
 @Composable
-fun HeroScrollScreanError(errorMessage: String, heroValues: List<ModelHero>, onAction: (ActionHero) -> Unit){
+fun HeroScrollScreanError(
+    errorMessage: String,
+    heroValues: List<ModelHero>,
+    onAction: (ActionHero) -> Unit
+) {
     Column {
         Column(
             modifier = Modifier

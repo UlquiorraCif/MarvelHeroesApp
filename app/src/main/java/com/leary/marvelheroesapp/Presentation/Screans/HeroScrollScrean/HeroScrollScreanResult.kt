@@ -21,10 +21,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
-import com.leary.marvelheroesapp.Presentation.Screans.ActionHero
 import com.leary.marvelheroesapp.Presentation.Components.HeroCard
 import com.leary.marvelheroesapp.Presentation.Components.HeroHeader
 import com.leary.marvelheroesapp.Presentation.Models.ModelHero
+import com.leary.marvelheroesapp.Presentation.Screans.ActionHero
 import com.leary.marvelheroesapp.Presentation.Theme.Size
 import com.leary.marvelheroesapp.Presentation.Theme.Spaces
 
@@ -32,7 +32,8 @@ import com.leary.marvelheroesapp.Presentation.Theme.Spaces
 @Composable
 fun HeroScrollScreanResult(
     heroValues: List<ModelHero>,
-    onAction: (ActionHero) -> Unit){
+    onAction: (ActionHero) -> Unit
+) {
 
     val lazyListState = rememberLazyListState()
     val snapBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
@@ -43,26 +44,26 @@ fun HeroScrollScreanResult(
         mutableStateOf(lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index)
     }
 
-    if(latestIndex.value != lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index){
+    if (latestIndex.value != lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index) {
 
         val firstVisibleIndex = lazyListState.layoutInfo.visibleItemsInfo.firstOrNull()?.index ?: -1
         val lastVisibleIndex = lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -1
 
-        if(firstVisibleIndex != -1){
-            if(firstVisibleIndex == 0 && lastVisibleIndex == 1){
+        if (firstVisibleIndex != -1) {
+            if (firstVisibleIndex == 0 && lastVisibleIndex == 1) {
                 rectangleColorState.value = heroValues[firstVisibleIndex].backgroundColor
-            }else{
+            } else {
                 rectangleColorState.value = heroValues[firstVisibleIndex + 1].backgroundColor
             }
         }
     }
 
-    Box (modifier = Modifier.fillMaxSize()){
-        Column (
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.End
-        ){
+        ) {
             Canvas(
                 modifier = Modifier.size(
                     width = Size.rectanglesSizes.width,
@@ -81,14 +82,14 @@ fun HeroScrollScreanResult(
             }
         }
 
-        Column (
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
                     top = Spaces.chooseHeroColumn
                 )
-        ){
+        ) {
             HeroHeader()
 
             LazyRow(
@@ -101,8 +102,8 @@ fun HeroScrollScreanResult(
                 ),
                 state = lazyListState,
                 flingBehavior = snapBehavior
-            ){
-                items(heroValues){ hero ->
+            ) {
+                items(heroValues) { hero ->
                     HeroCard(
                         hero,
                         onAction

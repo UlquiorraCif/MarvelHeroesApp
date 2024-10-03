@@ -1,7 +1,7 @@
 package com.leary.marvelheroesapp.Assets
 
 
-import com.leary.marvelheroesapp.Domain.HeroDatabaseModel
+import com.leary.marvelheroesapp.Data.Database.HeroDatabaseModel
 
 
 object SampleData{
