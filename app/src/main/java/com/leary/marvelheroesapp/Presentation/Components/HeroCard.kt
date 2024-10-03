@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,15 +16,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDirection
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.leary.marvelheroesapp.R
-import com.leary.marvelheroesapp.Presentation.Screans.ActionHero
 import com.leary.marvelheroesapp.Presentation.Models.ModelHero
+import com.leary.marvelheroesapp.Presentation.Screans.ActionHero
 import com.leary.marvelheroesapp.Presentation.Theme.Shapes
 import com.leary.marvelheroesapp.Presentation.Theme.Size
 import com.leary.marvelheroesapp.Presentation.Theme.Spaces
 import com.leary.marvelheroesapp.Presentation.Theme.interFamily
+import com.leary.marvelheroesapp.R
 
 @Composable
 fun HeroCard(hero: ModelHero, onAction: (ActionHero) -> Unit){
@@ -63,6 +65,7 @@ fun HeroCard(hero: ModelHero, onAction: (ActionHero) -> Unit){
             fontWeight = FontWeight.ExtraBold,
             fontSize = Size.fontSizes.heroNameInCard,
             color = MaterialTheme.colorScheme.onSecondary,
+            style = LocalTextStyle.current.copy(textDirection = TextDirection.Content),
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .padding(
