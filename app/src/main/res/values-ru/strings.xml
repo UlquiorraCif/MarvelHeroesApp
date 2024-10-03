@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Марвел</string>
+    <string name="back_button">Назад</string>
+    <string name="choose_hero">Выберите вашего героя</string>
+    <string name="marvel">Студия Marvel</string>
+    <string name="test_name">Информация</string>
+    <string name="test_description">Описание информации</string>
+    <string name="loading">Загрузка</string>
+    <string name="connection_error">Ошибка соединения</string>
+    <string name="choosehero_error_message">Не удалось получить данные с сервера</string>
+    <string name="singlehero_error_message">Не удалось получить данные о герое</string>
+</resources>
